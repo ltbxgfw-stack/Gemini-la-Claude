@@ -1,0 +1,67 @@
+:root {
+  /* Colors */
+  --color-cream: #F5F0E8;
+  --color-warm-white: #FDFAF5;
+  --color-ink: #1A1714;
+  --color-ink-soft: #3D3730;
+  --color-ink-muted: #8C8070;
+  --color-amber: #C8852A;
+  --color-amber-light: #E8A84A;
+  --color-amber-pale: #F5E6CC;
+  --color-border: #DDD5C4;
+  --color-shadow: rgba(26, 23, 20, 0.08);
+  --color-success: #4CAF50;
+  --color-error: #E53935;
+  --color-error-bg: #FFF0F0;
+  --color-error-border: #FFCDD2;
+  --color-error-text: #C62828;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #C8852A 0%, #E8A84A 100%);
+
+  /* Typography */
+  --font-sans: 'Instrument Sans', sans-serif;
+  --font-serif: 'Fraunces', serif;
+  --font-mono: 'DM Mono', monospace;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --font-size-xs: 10px;
+  --font-size-sm: 11px;
+  --font-size-base: 12px;
+  --font-size-md: 13px;
+  --font-size-lg: 14px;
+  --font-size-xl: 18px;
+  --font-size-xxl: 22px;
+  --font-size-xxxl: 28px;
+
+  --line-height-tight: 1;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.7;
+  --line-height-extra-loose: 1.75;
+  --line-height-double: 1.8;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.03em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.12em;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 9px;
+  --radius-xxl: 12px;
+  --radius-xxxl: 14px;
+  --radius-pill: 20px;
+  --radius-circle: 50%;
+  --radius-chat-bubble-user: 18px 18px 4px 18px;
+
+  /* Shadows */
+  --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.2);
+}
