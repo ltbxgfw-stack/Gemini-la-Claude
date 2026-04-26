@@ -1,4 +1,4 @@
-import { callGemini } from './api.js';
+import { callGemini } from './core/api.js';
 import {
   state,
   setSystemPrompt,
@@ -6,7 +6,7 @@ import {
   addMessageToHistory,
   popMessageFromHistory,
   setLoading
-} from './state.js';
+} from './core/state.js';
 import {
   openModal as uiOpenModal,
   closeModal as uiCloseModal,
@@ -14,7 +14,7 @@ import {
   showError,
   appendMessage,
   startRetryCountdown
-} from './ui-utils.js';
+} from './utils/ui-utils.js';
 
 // Init UI State
 document.addEventListener('DOMContentLoaded', () => {
