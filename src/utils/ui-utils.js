@@ -6,11 +6,31 @@ import { escapeHtml, markdownToHtml } from './parser.js';
 
 export function openModal(document, systemPrompt) {
   document.getElementById('promptEditor').value = systemPrompt;
-  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modalOverlay').style.display = 'flex';
+  setTimeout(() => {
+    document.getElementById('modalOverlay').classList.add('open');
+  }, 10);
 }
 
 export function closeModal(document) {
   document.getElementById('modalOverlay').classList.remove('open');
+  setTimeout(() => {
+    document.getElementById('modalOverlay').style.display = '';
+  }, 300); // match transition duration
+}
+
+export function openSettingsModal(document) {
+  document.getElementById('settingsOverlay').style.display = 'flex';
+  setTimeout(() => {
+    document.getElementById('settingsOverlay').classList.add('open');
+  }, 10);
+}
+
+export function closeSettingsModal(document) {
+  document.getElementById('settingsOverlay').classList.remove('open');
+  setTimeout(() => {
+    document.getElementById('settingsOverlay').style.display = '';
+  }, 300);
 }
 
 export function autoResize(el) {

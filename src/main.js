@@ -10,6 +10,8 @@ import {
 import {
   openModal as uiOpenModal,
   closeModal as uiCloseModal,
+  openSettingsModal as uiOpenSettingsModal,
+  closeSettingsModal as uiCloseSettingsModal,
   autoResize,
   showError,
   appendMessage,
@@ -23,10 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // API Key status watcher
   const apiKeyInput = document.getElementById('apiKey');
+  const mobileApiKeyInput = document.getElementById('mobileApiKey');
+
   if (apiKeyInput) {
     apiKeyInput.addEventListener('input', function() {
       const dot = document.getElementById('statusDot');
       dot.className = 'status-dot' + (this.value.trim().length > 10 ? ' active' : '');
+      if (mobileApiKeyInput && mobileApiKeyInput.value !== this.value) {
+        mobileApiKeyInput.value = this.value;
+      }
+    });
+  }
+
+  // Mobile API Key sync
+  if (mobileApiKeyInput && apiKeyInput) {
+    mobileApiKeyInput.addEventListener('input', function() {
+      if (apiKeyInput.value !== this.value) {
+        apiKeyInput.value = this.value;
+        apiKeyInput.dispatchEvent(new Event('input'));
+      }
     });
   }
 });
@@ -52,6 +69,27 @@ window.savePrompt = function() {
   document.getElementById('promptDisplay').textContent = state.systemPrompt;
   resetConversation(); // reset history when prompt changes
   window.closeModal();
+};
+
+window.openSettingsModal = function() {
+  uiOpenSettingsModal(document);
+};
+
+window.closeSettingsModal = function() {
+  uiCloseSettingsModal(document);
+};
+
+window.closeSettingsModalOutside = function(e) {
+  if (e.target === document.getElementById('settingsOverlay')) {
+    window.closeSettingsModal();
+  }
+};
+
+window.saveSettingsModal = function() {
+  // Sync the mobile settings back to desktop elements
+  const mobileModel = document.getElementById('mobileModelSelect').value;
+  document.getElementById('modelSelect').value = mobileModel;
+  window.closeSettingsModal();
 };
 
 // Chat Actions
