@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemini × Claude Style</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<link rel="stylesheet" href="theme/main.css">
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="logo">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div class="logo-icon">✦</div>
+      <div class="logo-text">Gemini <span>à la Claude</span></div>
+      <div class="badge">System Prompt Powered</div>
+    </div>
+    <div class="mobile-topbar-actions">
+      <button class="mobile-icon-btn" onclick="openSettingsModal()" title="设置 API">⚙</button>
+      <button class="mobile-icon-btn" onclick="openModal()" title="编辑 System Prompt">≡</button>
+    </div>
+  </div>
+  <div class="api-section" id="desktopApiSection">
+    <div class="status-dot" id="statusDot"></div>
+    <select id="modelSelect" class="api-input" style="width:200px;cursor:pointer;background:var(--color-cream)">
+      <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+    </select>
+    <input class="api-input" id="apiKey" type="password" placeholder="Gemini API Key">
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Sidebar: System Prompt viewer -->
+  <div class="sidebar">
+    <div class="sidebar-title">System Prompt</div>
+    <div class="prompt-display" id="promptDisplay"></div>
+    <div class="sidebar-actions">
+      <button class="edit-btn" onclick="openModal()">✎ 编辑 System Prompt</button>
+    </div>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat-area">
+    <div class="messages" id="messages">
+      <div class="welcome" id="welcome">
+        <div class="welcome-glyph">✦</div>
+        <h1>Gemini，<em>如 Claude 般</em></h1>
+        <p>通过精心设计的 System Prompt，让 Gemini 以 Claude 的方式思考与表达。输入你的 API Key 开始对话。</p>
+        <div class="welcome-chips">
+          <div class="chip" onclick="quickAsk('你好！你能介绍一下自己吗？')">介绍你自己</div>
+          <div class="chip" onclick="quickAsk('请解释什么是机器学习，用简单的语言。')">解释机器学习</div>
+          <div class="chip" onclick="quickAsk('帮我写一首关于秋天的短诗')">写一首诗</div>
+          <div class="chip" onclick="quickAsk('你有什么局限性？请诚实回答。')">你的局限性</div>
+        </div>
+      </div>
+    </div>
+    <div id="errorBanner" style="display:none"></div>
+    <div class="input-area">
+      <div class="input-wrap">
+        <textarea id="userInput" rows="1" placeholder="和 Claude 风格的 Gemini 聊聊…" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="white" stroke="white" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="input-hint">Enter 发送 · Shift+Enter 换行 · 请勿在不信任的网页使用真实 API Key</div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Bottom Sheet for Mobile -->
+<div class="modal-overlay" id="settingsOverlay" onclick="closeSettingsModalOutside(event)">
+  <div class="modal">
+    <h2>设置 API</h2>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+      <label style="font-family: var(--font-mono); font-size: var(--font-size-sm); color: var(--color-ink-muted);">API Key</label>
+      <input class="api-input" id="mobileApiKey" type="password" placeholder="Gemini API Key" style="width: 100%;">
+
+      <label style="font-family: var(--font-mono); font-size: var(--font-size-sm); color: var(--color-ink-muted); margin-top: 8px;">Model</label>
+      <select id="mobileModelSelect" class="api-input" style="width: 100%; cursor: pointer; background: var(--color-cream);">
+        <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+      </select>
+    </div>
+    <div class="modal-footer" style="margin-top: 20px;">
+      <button class="btn-cancel" onclick="closeSettingsModal()">关闭</button>
+      <button class="btn-save" onclick="saveSettingsModal()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Prompt editor modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <h2>编辑 System Prompt</h2>
+    <textarea id="promptEditor"></textarea>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" onclick="savePrompt()">保存并应用</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main JS Entry -->
+<script type="module" src="src/main.js"></script>
+
+</body>
+</html>
